@@ -1,0 +1,52 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+    RewriteBase /
+
+    # Block direct access to PHP (and inc) files inside Laravel's internal directories.
+    # This is critical for root deployment (index.php at top level).
+    # It prevents serving sensitive source files (e.g. /config/app.php, /app/Http/...) directly
+    # while STILL allowing our public routes under /config (like /config/exam-times) because
+    # those URIs do not end in .php.
+    RewriteCond %{REQUEST_URI} ^/(app|bootstrap|config|database|lang|resources|routes|storage|tests|vendor)/.*\.(php|inc) [NC]
+    RewriteRule ^ - [F,L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
+    # ----------------------------------------------------------------------
+    # Additional security: Block entire directories for non-route paths
+    # (kept for other dirs; config excluded to not interfere with /config/* routes)
+    # ----------------------------------------------------------------------
+    RewriteCond %{REQUEST_URI} ^/(app|bootstrap|database|lang|resources|routes|storage|tests|vendor)/ [NC]
+    RewriteRule ^ - [F,L]
+</IfModule>
+
+# Additional protection for common sensitive files that should never be served
+<FilesMatch "\.(env|env\..*|log|sql|md|yml|yaml|lock|json|config\.js)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

@@ -1,0 +1,419 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-glass: #ffffff;
+    --border-glass: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --accent-primary: #6366f1; /* Indigo */
+    --accent-hover: #4f46e5;
+    --accent-success: #10b981; /* Emerald */
+    --accent-warning: #f59e0b; /* Amber */
+    --accent-danger: #ef4444; /* Rose */
+    --font-sans: 'Outfit', sans-serif;
+    --card-shadow: 0 1px 3px 0 rgb(15 23 42 / 0.08), 0 1px 2px -1px rgb(15 23 42 / 0.04);
+    --card-shadow-hover: 0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1);
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Light Card / Panel */
+.glass-panel {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glass-panel:hover {
+    box-shadow: var(--card-shadow-hover);
+}
+
+/* Sidebar Styling (Light) */
+.sidebar {
+    min-height: 100vh;
+    width: 260px;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-glass);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding-top: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.sidebar .nav-link {
+    color: var(--text-secondary);
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    border-radius: 10px;
+    margin: 0.15rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.sidebar .nav-link i {
+    font-size: 1.1rem;
+    width: 24px;
+    text-align: center;
+}
+
+.sidebar .nav-link:hover {
+    color: var(--text-primary);
+    background-color: #f1f5f9;
+}
+
+.sidebar .nav-link.active {
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35);
+}
+
+.sidebar-logo {
+    padding: 0 1.25rem 1.25rem 1.25rem;
+    border-bottom: 1px solid var(--border-glass);
+    margin-bottom: 1.25rem;
+}
+
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #6366f1, #4f46e5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Main Content Wrapper */
+.main-wrapper {
+    margin-left: 260px;
+    padding: 1.75rem 2rem;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+/* Topbar Styling (Light) */
+.topbar {
+    position: relative;
+    z-index: 1050;
+    height: 64px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-glass);
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    padding: 0 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.03);
+}
+
+.topbar .dropdown-menu {
+    z-index: 1060 !important;
+}
+
+/* Custom Cards / Metrics */
+.metrics-card {
+    border-left: 4px solid var(--accent-primary) !important;
+}
+.metrics-card.teaching {
+    border-left: 4px solid var(--accent-success) !important;
+}
+.metrics-card.non-teaching {
+    border-left: 4px solid var(--accent-warning) !important;
+}
+.metrics-card.secretary {
+    border-left: 4px solid var(--accent-danger) !important;
+}
+
+.metrics-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    background: rgba(99, 102, 241, 0.10);
+    color: var(--accent-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+.metrics-card.teaching .metrics-icon {
+    background: rgba(16, 185, 129, 0.10);
+    color: var(--accent-success);
+}
+.metrics-card.non-teaching .metrics-icon {
+    background: rgba(245, 158, 11, 0.10);
+    color: var(--accent-warning);
+}
+.metrics-card.secretary .metrics-icon {
+    background: rgba(239, 68, 68, 0.10);
+    color: var(--accent-danger);
+}
+
+/* Form Styling (Light) */
+.form-control, .form-select {
+    background-color: #ffffff !important;
+    border: 1px solid var(--border-strong) !important;
+    color: var(--text-primary) !important;
+    border-radius: 8px;
+    padding: 0.55rem 0.9rem;
+    transition: all 0.2s ease;
+    box-shadow: none;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12) !important;
+}
+
+.form-control::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+
+/* Buttons (Light theme friendly) */
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover));
+    border: none;
+    padding: 0.55rem 1.35rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 3px 10px rgba(99, 102, 241, 0.35);
+    transform: translateY(-1px);
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: #f8fafc;
+    border: 1px solid var(--border-glass);
+    color: var(--text-primary);
+    padding: 0.55rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #f1f5f9;
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+}
+
+/* DataTables & Tables (Light) */
+.table {
+    color: var(--text-primary) !important;
+}
+
+.table th {
+    border-bottom: 2px solid var(--border-glass) !important;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+}
+
+.table td {
+    border-bottom: 1px solid var(--border-glass) !important;
+    vertical-align: middle;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f8fafc;
+}
+
+/* Sticky Table Component for Large Staff Reports */
+.sticky-table-wrapper {
+    position: relative;
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    -webkit-overflow-scrolling: touch;
+}
+
+.sticky-table-wrapper table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    width: 100%;
+}
+
+.sticky-table-wrapper thead th {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 30 !important;
+    background-color: #0f172a !important; /* solid deep slate */
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.05em !important;
+    padding: 12px 10px !important;
+    border-top: none !important;
+    border-bottom: 2px solid #334155 !important;
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.25) !important;
+}
+
+.sticky-table-wrapper tfoot td,
+.sticky-table-wrapper tfoot th {
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 25 !important;
+    background-color: #f1f5f9 !important;
+    font-weight: 700 !important;
+    border-top: 2px solid #0f172a !important;
+    box-shadow: 0 -3px 5px -1px rgba(0, 0, 0, 0.15) !important;
+}
+
+.dataTables_wrapper .dataTables_length, 
+.dataTables_wrapper .dataTables_filter, 
+.dataTables_wrapper .dataTables_info, 
+.dataTables_wrapper .dataTables_processing, 
+.dataTables_wrapper .dataTables_paginate {
+    color: var(--text-secondary) !important;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    background-color: #ffffff !important;
+    border: 1px solid var(--border-strong) !important;
+    color: var(--text-primary) !important;
+    border-radius: 6px;
+    padding: 0.35rem 0.65rem;
+    margin-left: 0.5rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border-glass) !important;
+    border-radius: 6px !important;
+    background-color: #ffffff !important;
+    margin: 0 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, 
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-hover)) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #f1f5f9 !important;
+    color: var(--text-primary) !important;
+    border-color: var(--accent-primary) !important;
+}
+
+/* Badges (Light) */
+.badge-active {
+    background-color: rgba(16, 185, 129, 0.12) !important;
+    color: #15803d !important;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 0.3em 0.6em;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.badge-inactive {
+    background-color: rgba(239, 68, 68, 0.12) !important;
+    color: #b91c1c !important;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    padding: 0.3em 0.6em;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animated-fade-in {
+    animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Row-wise Error List */
+.error-card {
+    border-left: 4px solid var(--accent-danger) !important;
+    background: #fef2f2;
+}
+
+/* Custom Checkbox for Duty page */
+.custom-checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid var(--border-strong);
+    background-color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+/* Accent color utilities (for text-indigo etc. used in views) */
+.text-indigo,
+.text-primary.accent {
+    color: var(--accent-primary) !important;
+}
+.text-amber {
+    color: #d97706 !important; /* Amber 600 for good contrast on light */
+}
+
+/* Small utility tweaks */
+.border-secondary {
+    border-color: var(--border-glass) !important;
+}
+
+/* Print Styling */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    .sidebar, .topbar, .btn, .dataTables_filter, .dataTables_length, .dataTables_paginate, .dataTables_info, .no-print {
+        display: none !important;
+    }
+    .main-wrapper {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+    .glass-panel {
+        background: white !important;
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        color: black !important;
+    }
+    .table {
+        color: black !important;
+    }
+    .table th {
+        color: #333 !important;
+        border-bottom: 2px solid #333 !important;
+    }
+    .table td {
+        border-bottom: 1px solid #ddd !important;
+    }
+}

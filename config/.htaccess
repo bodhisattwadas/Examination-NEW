@@ -1,0 +1,5 @@
+# This directory contains Laravel configuration (sensitive).
+# Directory listing disabled.
+# Actual .php file protection is handled in the root .htaccess (targets only .php under /config/).
+# Routes like /config/exam-times are allowed and rewritten to index.php.
+Options -Indexes
