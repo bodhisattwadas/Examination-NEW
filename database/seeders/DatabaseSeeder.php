@@ -24,11 +24,13 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => Hash::make('password'),
-        ]);
+        User::updateOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => Hash::make('password'),
+            ]
+        );
 
         // Default exam time slots for the dropdown in duty entry
         if (\App\Models\ExamTime::count() === 0) {
