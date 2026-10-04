@@ -92,7 +92,7 @@
                     <label class="form-label text-secondary small fw-semibold">Admin Email</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light text-secondary"><i class="fa-solid fa-envelope"></i></span>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', 'admin@example.com') }}" placeholder="admin@example.com" required autofocus autocomplete="username">
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" placeholder="admin@example.com" required autofocus autocomplete="username">
                     </div>
                 </div>
 
@@ -115,15 +115,9 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary w-100 mb-3">
+                <button type="submit" class="btn btn-primary w-100">
                     <i class="fa-solid fa-right-to-bracket me-1"></i> Sign In to Portal
                 </button>
-
-                <!-- Default Credentials Helper Card -->
-                <div class="bg-light p-2 rounded text-center border" style="font-size: 0.78rem;">
-                    <span class="text-muted">Default Admin:</span> <strong class="text-dark">admin@example.com</strong> &bull;
-                    <span class="text-muted">Password:</span> <strong class="text-dark">password</strong>
-                </div>
             </form>
         </div>
     </div>
