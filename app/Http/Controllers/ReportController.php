@@ -191,10 +191,13 @@ class ReportController extends Controller
             $staffQuery->where('name', 'like', '%' . trim($request->staff_name) . '%');
         }
 
-        // Active staff first, ordered by Teaching then Non-teaching, then by name
-        $staffs = $staffQuery->orderByRaw("CASE WHEN staff_type = 'Teaching' THEN 1 ELSE 2 END")
-            ->orderBy('name')
-            ->get();
+        // Active staff: Teachers first alphabetically, then Non-teaching alphabetically (preserving full Dr. name)
+        $staffs = $staffQuery->get()
+            ->sortBy(function($staff) {
+                $categoryOrder = $staff->staff_type === 'Teaching' ? '1_' : '2_';
+                return $categoryOrder . strtolower($staff->clean_name);
+            }, SORT_NATURAL | SORT_FLAG_CASE)
+            ->values();
 
         // Load all duty assignments for the relevant exams and staff
         $examIds = $exams->pluck('id');

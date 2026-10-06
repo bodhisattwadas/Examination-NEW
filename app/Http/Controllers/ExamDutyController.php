@@ -294,11 +294,16 @@ class ExamDutyController extends Controller
      */
     public function exportPdf(ExamDuty $duty)
     {
-        $duty->load(['dutyAssignments.staff' => function($q) {
-            $q->orderByRaw("CASE WHEN staff_type = 'Teaching' THEN 1 ELSE 2 END")->orderBy('name');
-        }]);
+        $duty->load(['dutyAssignments.staff']);
 
-        $assignments = $duty->dutyAssignments;
+        // All teachers first alphabetically, then non-teaching alphabetically (preserving full Dr. name)
+        $assignments = $duty->dutyAssignments->sortBy(function($a) {
+            $staff = $a->staff;
+            if (!$staff) return '9_';
+            $categoryOrder = $staff->staff_type === 'Teaching' ? '1_' : '2_';
+            return $categoryOrder . strtolower($staff->clean_name);
+        }, SORT_NATURAL | SORT_FLAG_CASE)->values();
+
         $totalHours = (float) $assignments->sum('duty_hours');
         $totalOic = (int) $assignments->sum('oic_count');
         $totalSec = (int) $assignments->where('is_exam_secretary', true)->count();
@@ -317,11 +322,15 @@ class ExamDutyController extends Controller
      */
     public function exportExcel(ExamDuty $duty)
     {
-        $duty->load(['dutyAssignments.staff' => function($q) {
-            $q->orderByRaw("CASE WHEN staff_type = 'Teaching' THEN 1 ELSE 2 END")->orderBy('name');
-        }]);
+        $duty->load(['dutyAssignments.staff']);
 
-        $assignments = $duty->dutyAssignments;
+        // All teachers first alphabetically, then non-teaching alphabetically (preserving full Dr. name)
+        $assignments = $duty->dutyAssignments->sortBy(function($a) {
+            $staff = $a->staff;
+            if (!$staff) return '9_';
+            $categoryOrder = $staff->staff_type === 'Teaching' ? '1_' : '2_';
+            return $categoryOrder . strtolower($staff->clean_name);
+        }, SORT_NATURAL | SORT_FLAG_CASE)->values();
         $totalHours = (float) $assignments->sum('duty_hours');
         $totalOic = (int) $assignments->sum('oic_count');
         $totalSec = (int) $assignments->where('is_exam_secretary', true)->count();
