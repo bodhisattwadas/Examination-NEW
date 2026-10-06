@@ -357,7 +357,8 @@ class ExamDutyController extends Controller
             $sheet->setCellValue('A' . $currentRow, $sl++);
             $sheet->setCellValue('B' . $currentRow, $staff->name);
             $sheet->setCellValue('C' . $currentRow, $staff->staff_type);
-            $sheet->setCellValue('D' . $currentRow, number_format((float)$a->duty_hours, 1) . ' hrs');
+            $hours = (float)$a->duty_hours;
+            $sheet->setCellValue('D' . $currentRow, $hours == (int)$hours ? (int)$hours : $hours);
             $sheet->setCellValue('E' . $currentRow, $staff->staff_type === 'Teaching' ? (int)$a->oic_count : 'N/A');
             $sheet->setCellValue('F' . $currentRow, $staff->staff_type === 'Teaching' ? ($a->is_exam_secretary ? 'YES (Secretary)' : 'No') : 'N/A');
 
@@ -381,7 +382,7 @@ class ExamDutyController extends Controller
         $sheet->getStyle("A{$currentRow}")->getFont()->setBold(true);
         $sheet->getStyle("A{$currentRow}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
-        $sheet->setCellValue('D' . $currentRow, number_format($totalHours, 1) . ' hrs');
+        $sheet->setCellValue('D' . $currentRow, $totalHours == (int)$totalHours ? (int)$totalHours : $totalHours);
         $sheet->setCellValue('E' . $currentRow, $totalOic);
         $sheet->setCellValue('F' . $currentRow, $totalSec . ' Secretaries');
 

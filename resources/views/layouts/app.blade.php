@@ -20,6 +20,19 @@
     <!-- Custom Stylesheet -->
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     
+    <style>
+        /* Disable number input spin buttons / scrollers */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0 !important;
+        }
+        input[type=number] {
+            -moz-appearance: textfield !important;
+            appearance: textfield !important;
+        }
+    </style>
+    
     @yield('styles')
 </head>
 <body>
@@ -174,6 +187,13 @@
                     }
                 });
             }
+
+            // Prevent mouse wheel from accidentally changing number input values
+            document.addEventListener('wheel', function(e) {
+                if (document.activeElement && document.activeElement.type === 'number') {
+                    document.activeElement.blur();
+                }
+            }, { passive: true });
         });
     </script>
     

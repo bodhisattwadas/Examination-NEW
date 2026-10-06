@@ -81,7 +81,8 @@ class ReportController extends Controller
             $sheet->getStyle('C' . $currentRow)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
             // Totals
-            $sheet->setCellValue('D' . $currentRow, number_format($row['total_hours'], 1) . ' hrs');
+            $hours = (float)$row['total_hours'];
+            $sheet->setCellValue('D' . $currentRow, $hours == (int)$hours ? (int)$hours : $hours);
             $sheet->setCellValue('E' . $currentRow, $row['staff']->staff_type === 'Teaching' ? $row['total_oic'] : 'N/A');
             $sheet->setCellValue('F' . $currentRow, $row['staff']->staff_type === 'Teaching' ? $row['total_sec'] : 'N/A');
 
@@ -104,7 +105,8 @@ class ReportController extends Controller
         $sheet->getStyle("A{$currentRow}")->getFont()->setBold(true);
         $sheet->getStyle("A{$currentRow}")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
-        $sheet->setCellValue('D' . $currentRow, number_format($grandTotals['hours'], 1) . ' hrs');
+        $totalH = (float)$grandTotals['hours'];
+        $sheet->setCellValue('D' . $currentRow, $totalH == (int)$totalH ? (int)$totalH : $totalH);
         $sheet->setCellValue('E' . $currentRow, $grandTotals['oic']);
         $sheet->setCellValue('F' . $currentRow, $grandTotals['sec']);
 
