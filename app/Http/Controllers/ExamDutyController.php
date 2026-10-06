@@ -47,11 +47,13 @@ class ExamDutyController extends Controller
      */
     public function create(Request $request)
     {
-        // Only active staff must appear in the duty entry list.
+        // Only active staff must appear in the duty entry list, sorted alphabetically by clean name (without Dr.)
         $staffs = Staff::active()
-            ->orderByRaw("CASE WHEN staff_type = 'Teaching' THEN 1 ELSE 2 END")
-            ->orderBy('name')
-            ->get();
+            ->get()
+            ->sortBy(function($staff) {
+                return strtolower($staff->clean_name);
+            }, SORT_NATURAL | SORT_FLAG_CASE)
+            ->values();
 
         return view('duty.create', compact('staffs'));
     }
@@ -165,10 +167,13 @@ class ExamDutyController extends Controller
      */
     public function edit(ExamDuty $duty)
     {
+        // Active staff list sorted alphabetically by clean name (without Dr.)
         $staffs = Staff::active()
-            ->orderByRaw("CASE WHEN staff_type = 'Teaching' THEN 1 ELSE 2 END")
-            ->orderBy('name')
-            ->get();
+            ->get()
+            ->sortBy(function($staff) {
+                return strtolower($staff->clean_name);
+            }, SORT_NATURAL | SORT_FLAG_CASE)
+            ->values();
 
         // Current assignments keyed by staff_id for pre-filling the form
         $currentAssignments = $duty->dutyAssignments()->get()->keyBy('staff_id');

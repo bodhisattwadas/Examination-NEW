@@ -118,7 +118,7 @@
                                     @endphp
                                     <tr class="staff-row" data-type="{{ $staff->staff_type }}">
                                         <td class="text-center text-muted small">{{ $loop->iteration }}</td>
-                                        <td class="fw-semibold text-dark">{{ $staff->name }}</td>
+                                        <td class="fw-semibold text-dark" data-sort="{{ $staff->clean_name }}">{{ $staff->clean_name }}</td>
                                         <td>
                                             @if($staff->staff_type == 'Teaching')
                                                 <span class="badge rounded bg-success bg-opacity-10 text-success border border-success border-opacity-20"><i class="fa-solid fa-chalkboard-user me-1"></i> Teaching</span>
@@ -207,7 +207,7 @@
                 "paging": false,
                 "scrollY": "500px",
                 "scrollCollapse": true,
-                "order": [],  // keep server ordering
+                "order": [[1, 'asc']],  // Alphabetical by staff name
                 "language": {
                     "search": "<i class='fa-solid fa-magnifying-glass text-secondary'></i>",
                     "searchPlaceholder": "Filter staff by name..."

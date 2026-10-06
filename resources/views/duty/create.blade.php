@@ -121,8 +121,8 @@
                                 @forelse($staffs as $staff)
                                     <tr data-staff-type="{{ $staff->staff_type }}">
                                         <td class="text-center text-muted small">{{ $loop->iteration }}</td>
-                                        <td>
-                                            <div class="fw-semibold text-dark">{{ $staff->name }}</div>
+                                        <td data-sort="{{ $staff->clean_name }}">
+                                            <div class="fw-semibold text-dark">{{ $staff->clean_name }}</div>
                                             <div class="text-secondary small" style="font-size: 0.72rem;">{{ $staff->staff_code }}</div>
                                         </td>
                                         <td>
@@ -229,7 +229,7 @@
                 "paging": false,
                 "scrollY": "520px",
                 "scrollCollapse": true,
-                "order": [],  // keep server ordering
+                "order": [[1, 'asc']],  // Alphabetical by staff name
                 "language": {
                     "search": "<i class='fa-solid fa-magnifying-glass text-secondary'></i>",
                     "searchPlaceholder": "Filter staff by name..."

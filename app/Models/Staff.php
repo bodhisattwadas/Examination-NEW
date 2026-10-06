@@ -46,4 +46,12 @@ class Staff extends Model
     {
         return $this->hasMany(ExamDutyStaff::class, 'staff_id');
     }
+
+    /**
+     * Get staff name without prefix like "Dr." or "Dr"
+     */
+    public function getCleanNameAttribute(): string
+    {
+        return trim(preg_replace('/^Dr(\.|\s)\s*/i', '', (string)$this->name));
+    }
 }
