@@ -47,11 +47,12 @@ class ExamDutyController extends Controller
      */
     public function create(Request $request)
     {
-        // Only active staff must appear in the duty entry list, sorted alphabetically by clean name (without Dr.)
+        // Active staff list: Teaching first (A-Z by clean name), then Non-teaching (A-Z by clean name)
         $staffs = Staff::active()
             ->get()
             ->sortBy(function($staff) {
-                return strtolower($staff->clean_name);
+                $categoryOrder = $staff->staff_type === 'Teaching' ? '1_' : '2_';
+                return $categoryOrder . strtolower($staff->clean_name);
             }, SORT_NATURAL | SORT_FLAG_CASE)
             ->values();
 
@@ -167,11 +168,12 @@ class ExamDutyController extends Controller
      */
     public function edit(ExamDuty $duty)
     {
-        // Active staff list sorted alphabetically by clean name (without Dr.)
+        // Active staff list: Teaching first (A-Z by clean name), then Non-teaching (A-Z by clean name)
         $staffs = Staff::active()
             ->get()
             ->sortBy(function($staff) {
-                return strtolower($staff->clean_name);
+                $categoryOrder = $staff->staff_type === 'Teaching' ? '1_' : '2_';
+                return $categoryOrder . strtolower($staff->clean_name);
             }, SORT_NATURAL | SORT_FLAG_CASE)
             ->values();
 
